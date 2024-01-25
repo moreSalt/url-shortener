@@ -24,7 +24,8 @@ import (
 )
 
 func main() {
-
+	// testEncoder()
+	// return
 	lamb := os.Getenv("LAMBDA")
 
 	if lamb == "true" {
@@ -357,7 +358,7 @@ func getRow(encodedId string, db *sql.DB) (string, error) {
 
 // Encode an id
 func encodeId(id int) string {
-	data := []byte(fmt.Sprintf("%v", id))
+	data := []byte(fmt.Sprintf("%05d", id))
 	return base58.Encode(data)
 }
 
@@ -369,4 +370,10 @@ func decodeId(encodedVal string) (int, error) {
 		return 0, err
 	}
 	return id, nil
+}
+
+func testEncoder() {
+	for i := 0; i < 100000; i++ {
+		fmt.Println(encodeId(i))
+	}
 }
